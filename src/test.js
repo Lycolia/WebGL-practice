@@ -1,3 +1,4 @@
+//@ts-check
 /**
  * @type {WebGLRenderingContext}
  */
@@ -14,6 +15,10 @@ window.onload = () => {
  * 初期化
  */
 function initialize() {
+  /**
+   * @type {HTMLCanvasElement}
+   */
+  // @ts-ignore
   const canvas = document.getElementById('canvas');
   canvas.width = 1024;
   canvas.height = 768;
@@ -37,8 +42,10 @@ function initialize() {
 function getShader(id) {
   let shader;
   // vs, vfのscriptタグを取得
+  /**
+   * @type {HTMLScriptElement} */
+  // @ts-ignore
   const el = document.getElementById(id);
-
   switch(el.type) {
     // エレメントタイプに応じてシェーダーを作成
     case 'x-shader/x-vertex':
@@ -174,6 +181,7 @@ function createVBO(program) {
  */
 function drawPolygon(prg) {
   // matIVオブジェクトを生成
+  // @ts-ignore
   // eslint-disable-next-line no-undef
   const m = new matIV();
   
