@@ -1,6 +1,3 @@
-import matIV from './minMatrix';
-import VBO from './VBO';
-
 /**
  * @type {WebGLRenderingContext}
  */
@@ -116,24 +113,18 @@ function getVBO(srcArr) {
  * @param {WebGLProgram} program
  */
 function createVBO(program) {
-  const attrLoc = [];
   // shaderで定義したattaributeのポインタを取得する
-  attrLoc.push(
-    gl.getAttribLocation(
-      program,
-      'position'
-    )
+  const attrPosLoc = gl.getAttribLocation(
+    program,
+    'position'
   );
-  attrLoc.push(
-    gl.getAttribLocation(
-      program,
-      'color'
-    )
+  const attrColorLoc = gl.getAttribLocation(
+    program,
+    'color'
   );
   // attaributeの要素数
-  const attrLen = [];
-  attrLen.push(3);
-  attrLen.push(4);
+  const attrPosLen = 3;
+  const attrColorLen = 4;
   // 頂点座標情報
   const vertexPos = [
     // X,   Y,   Z
@@ -151,13 +142,24 @@ function createVBO(program) {
   const vertexVBO = getVBO(vertexPos);
   const colorVBO = getVBO(vertexColor);
   // VBOをバインド
-  gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexVBO);
   // attrをバッファに格納みたいなふるまいか？
-  gl.enableVertexAttribArray(attrLocation);
+  gl.enableVertexAttribArray(attrPosLoc);
   // シェーダーに登録してるらしい。バインドしたVBOに対して実行される？
   gl.vertexAttribPointer(
-    attrLocation,
-    attrLength,
+    attrPosLoc,
+    attrPosLen,
+    gl.FLOAT,
+    false, 0, 0
+  );
+  // VBOをバインド
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorVBO);
+  // attrをバッファに格納みたいなふるまいか？
+  gl.enableVertexAttribArray(attrColorLoc);
+  // シェーダーに登録してるらしい。バインドしたVBOに対して実行される？
+  gl.vertexAttribPointer(
+    attrColorLoc,
+    attrColorLen,
     gl.FLOAT,
     false, 0, 0
   );
@@ -170,12 +172,8 @@ function createVBO(program) {
  */
 function drawPolygon(prg) {
   // matIVオブジェクトを生成
+  // eslint-disable-next-line no-undef
   const m = new matIV();
-  /**
-   * @type {import("VBO")}
-   */
-  const v = new VBO();
-  v.
   
   // 行列の生成
   var model = m.identity(m.create()); // モデル情報（モデルの位置、回転、縮尺
