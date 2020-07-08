@@ -8,7 +8,7 @@
   },
   "globals": {},
   "rules": {
-    "semi": "error",
+    "semi": "warn",
     "quotes": ["warn", "single"]
   }
 }
