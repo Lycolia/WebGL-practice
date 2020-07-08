@@ -41,7 +41,7 @@ function initialize() {
  */
 function getShader(id) {
   /**
-   * @type WebGLShader
+   * @type {WebGLShader}
    */
   let shader;
   // vs, vfのscriptタグを取得
