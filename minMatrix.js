@@ -4,6 +4,7 @@
 // Copyright (c) doxas
 // ------------------------------------------------------------------------------------------------
 
+// eslint-disable-next-line no-unused-vars
 function matIV(){
 	this.create = function(){
 		return new Float32Array(16);
