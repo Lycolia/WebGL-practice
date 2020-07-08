@@ -92,6 +92,13 @@ function getProgram() {
   }
 }
 
+function test() {
+  return {
+    hoge: 1,
+    fuga: 2
+  };
+}
+
 /**
  * VBOを取得
  * @param {Array} srcArr ソース配列
@@ -113,53 +120,55 @@ function getVBO(srcArr) {
  * @param {WebGLProgram} program
  */
 function createVBO(program) {
+  const position = VBO();
+  const color = VBO();
   // shaderで定義したattaributeのポインタを取得する
-  const attrPosLoc = gl.getAttribLocation(
+  position.location = gl.getAttribLocation(
     program,
     'position'
   );
-  const attrColorLoc = gl.getAttribLocation(
+  color.location = gl.getAttribLocation(
     program,
     'color'
   );
   // attaributeの要素数
-  const attrPosLen = 3;
-  const attrColorLen = 4;
+  position.length = 3;
+  color.length = 4;
   // 頂点座標情報
-  const vertexPos = [
+  position.vertex = [
     // X,   Y,   Z
       0.0, 2.0, 0.0,
       1.5, 0.0, 0.0,
     -1.0, 0.0, 0.0
   ];
-  const vertexColor = [
+  color.vertex = [
     // R, G, B, A
     1.0, 0.0, 0.0, 1.0,
     0.0, 1.0, 0.0, 1.0,
     0.0, 0.0, 1.0, 1.0,
   ];
   // 頂点バッファの取得
-  const vertexVBO = getVBO(vertexPos);
-  const colorVBO = getVBO(vertexColor);
+  position.vbo = getVBO(position.vertex);
+  color.vbo = getVBO(color.vertex);
   // VBOをバインド
-  gl.bindBuffer(gl.ARRAY_BUFFER, vertexVBO);
+  gl.bindBuffer(gl.ARRAY_BUFFER, position.vbo);
   // attrをバッファに格納みたいなふるまいか？
-  gl.enableVertexAttribArray(attrPosLoc);
+  gl.enableVertexAttribArray(position.location);
   // シェーダーに登録してるらしい。バインドしたVBOに対して実行される？
   gl.vertexAttribPointer(
-    attrPosLoc,
-    attrPosLen,
+    position.location,
+    position.length,
     gl.FLOAT,
     false, 0, 0
   );
   // VBOをバインド
-  gl.bindBuffer(gl.ARRAY_BUFFER, colorVBO);
+  gl.bindBuffer(gl.ARRAY_BUFFER, color.vbo);
   // attrをバッファに格納みたいなふるまいか？
-  gl.enableVertexAttribArray(attrColorLoc);
+  gl.enableVertexAttribArray(color.location);
   // シェーダーに登録してるらしい。バインドしたVBOに対して実行される？
   gl.vertexAttribPointer(
-    attrColorLoc,
-    attrColorLen,
+    color.location,
+    color.length,
     gl.FLOAT,
     false, 0, 0
   );
@@ -197,4 +206,16 @@ function drawPolygon(prg) {
   gl.drawArrays(gl.TRIANGLES, 0, 3);
   // ここまでのバッファデータを吐く
   gl.flush();
+}
+
+/**
+ * VBOのInterface的ななにか
+ */
+function VBO() {
+  return {
+    location: 0,
+    length: 0,
+    vertex: [],
+    vbo: null
+  };
 }
