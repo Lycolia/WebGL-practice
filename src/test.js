@@ -102,6 +102,7 @@ function getProgram() {
 /**
  * VBOを取得
  * @param {Array} srcArr ソース配列
+ * @returns {WebGLBuffer}
  */
 function getVBO(srcArr) {
   // バッファの作成
@@ -214,9 +215,21 @@ function drawPolygon(prg) {
  */
 function VBO() {
   return {
+    /**
+     * @type {Number}
+     */
     location: 0,
+    /**
+     * @type {Number}
+     */
     length: 0,
+    /**
+     * @type {Array}
+     */
     vertex: [],
+    /**
+     * @type {WebGLBuffer}
+     */
     vbo: null
   };
 }
