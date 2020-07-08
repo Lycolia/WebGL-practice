@@ -92,13 +92,6 @@ function getProgram() {
   }
 }
 
-function test() {
-  return {
-    hoge: 1,
-    fuga: 2
-  };
-}
-
 /**
  * VBOを取得
  * @param {Array} srcArr ソース配列
@@ -137,15 +130,15 @@ function createVBO(program) {
   // 頂点座標情報
   position.vertex = [
     // X,   Y,   Z
-      0.0, 2.0, 0.0,
-      1.5, 0.0, 0.0,
-    -1.0, 0.0, 0.0
+      0.0, 2.0, 0.0, // Top
+      1.5, 0.0, 0.0, // Right
+    -0.5, 0.0, 0.0   // Left
   ];
   color.vertex = [
     // R, G, B, A
-    1.0, 0.0, 0.0, 1.0,
-    0.0, 1.0, 0.0, 1.0,
-    0.0, 0.0, 1.0, 1.0,
+    1.0, 0.10, 0.0, 1.0, // Top
+    0.0, 1.0, 0.0, 1.0, // Right
+    0.0, 0.0, 1.0, 1.0, // Left
   ];
   // 頂点バッファの取得
   position.vbo = getVBO(position.vertex);
